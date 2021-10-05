@@ -1,7 +1,25 @@
-const _ = require('lodash');
+const { readFile } = require ('fs');
 
-const items = [1, [2, [3, [4]]]]
-const newItems = _.flattenDeep(items)
-console.log(newItems)
+const getText = (path) => {
+    return new Promise((resolve, reject) => {
+        readFile(path, 'utf8', (err, result) => {
+            if (err){
+                reject(err);
+                return
+            } else {
+                resolve(result);
+            }
+        })
+    })
+}
 
-// 2:02:54 - Share Code
+// getText('./content/first.txt')
+// .then(result => console.log(result))
+// .catch((err) => console.log(err))
+
+const start = async() => {
+    const first = await getText('./content/first.txt');
+    console.log(first);
+}
+
+start()
